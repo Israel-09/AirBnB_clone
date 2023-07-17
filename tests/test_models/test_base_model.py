@@ -32,9 +32,8 @@ class BaseModelTest(unittest.TestCase):
 
     def test_base_model_save(self):
         '''testing the save method of BaseModel'''
-        self.assertTrue(hasattr(self.model1, 'save') and callable(self.model1.save))
+        self.assertTrue(hasattr(self.model1, 'save') and
+                        callable(self.model1.save))
         current_time = self.model1.updated_at
         self.model1.save()
         self.assertNotEqual(current_time, self.model1.updated_at)
-
-
