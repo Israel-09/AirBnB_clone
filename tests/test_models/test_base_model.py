@@ -37,3 +37,27 @@ class BaseModelTest(unittest.TestCase):
         current_time = self.model1.updated_at
         self.model1.save()
         self.assertNotEqual(current_time, self.model1.updated_at)
+
+    def test_base_model_to_dict(self):
+        '''testing the to_dict method of BaseModel'''
+        self.assertTrue(hasattr(self.model1, 'to_dict') and
+                        callable(self.model1.to_dict))
+        self.assertNotEqual(self.model1.to_dict, self.__dict__)
+        dict_obj = self.model1.to_dict()
+        self.assertTrue('__class__' in dict_obj)
+        self.assertTrue('id' in dict_obj)
+        self.assertTrue('created_at' in dict_obj)
+        self.assertTrue('updated_at' in dict_obj)
+        dt_format = self.model1.created_at.strftime('%Y-%m-%dT%H:%M:%S.%f')
+        self.assertEqual(dict_obj['created_at'], dt_format)
+        dt_format = self.model1.updated_at.strftime('%Y-%m-%dT%H:%M:%S.%f')
+        self.assertEqual(dict_obj['updated_at'], dt_format)
+
+    def test_base_str(self):
+        '''testing the __str__ method'''
+        str_rep = '[{}] ({}) {}'.format(self.model1.__class__.__name__,
+                                        self.model1.id,
+                                        self.model1.__dict__
+                                        )
+        self.assertEqual(str_rep, str(self.model1))
+        self.assertEqual(str_rep, self.model1)
