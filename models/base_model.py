@@ -22,11 +22,11 @@ class BaseModel:
         dict_obj = {}
 
         dict_obj['__class__'] = self.__class__.__name__
-        
+
         for attr in self.__dict__.keys():
             dict_obj[attr] = self.__dict__[attr]
 
-        print(dict_obj)
+        return (dict_obj)
 
     def __str__(self):
         '''string representation of the class'''
@@ -34,5 +34,3 @@ class BaseModel:
                                      self.__dict__)
 
 
-base = BaseModel()
-base.to_dict()
