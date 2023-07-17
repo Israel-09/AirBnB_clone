@@ -22,14 +22,19 @@ class BaseModelTest(unittest.TestCase):
         '''testing the created_at attrinbute'''
         self.assertTrue(hasattr(self.model1, 'created_at'))
         self.assertTrue(type(self.model1.created_at), 'datetime.datetime')
+        self.assertNotEqual(self.model1.created_at, self.model2.created_at)
 
     def test_base_model_updated_at(self):
         '''testing the updated_at attrinbute'''
         self.assertTrue(hasattr(self.model1, 'updated_at'))
         self.assertTrue(type(self.model1.updated_at), 'datetime.datetime')
-        self.assertNotEqual(self.model1.created_at, self.model2.created_at)
+        self.assertNotEqual(self.model1.created_at, self.model1.updated_at)
 
-    def test_base_model_save(self)
+    def test_base_model_save(self):
         '''testing the save method of BaseModel'''
+        self.assertTrue(hasattr(self.model1, 'save') and callable(self.model1.save))
+        current_time = self.model1.updated_at
         self.model1.save()
-        
+        self.assertNotEqual(current_time, self.model1.updated_at)
+
+
