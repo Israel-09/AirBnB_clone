@@ -60,4 +60,15 @@ class BaseModelTest(unittest.TestCase):
                                         self.model1.__dict__
                                         )
         self.assertEqual(str_rep, str(self.model1))
-        self.assertEqual(str_rep, self.model1)
+
+    def test_base_constructor(self):
+        '''testing the class constructor'''
+        from datetime import datetime
+
+        dict_obj = self.model1.to_dict()
+        new_model = BaseModel(**dict_obj)
+        self.assertIsNot(self.model1, new_model)
+        for key in new_model.__dict__:
+            self.assertEqual(new_model.__dict__[key],
+                            self.model1.__dict__[key])
+        self.assertTrue(type(new_model.created_at), 'datetime.datetime')

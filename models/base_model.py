@@ -7,11 +7,20 @@ from datetime import datetime
 class BaseModel:
     '''basemodel class for all other classes'''
 
-    def __init__(self):
+    def __init__(self, *args, **kwargs):
         '''class constructor for the base model'''
-        self.id = str(uuid.uuid4())
-        self.created_at = datetime.now()
-        self.updated_at = datetime.now()
+        if kwargs:
+            for attr in kwargs.keys():
+                if not attr == '__class__':
+                    if attr == 'updated_at' or attr == 'created_at':
+                        value = datetime.fromisoformat(kwargs[attr])
+                    else:
+                        value = kwargs[attr]
+                    setattr(self, attr, value)
+        else:
+            self.id = str(uuid.uuid4())
+            self.created_at = datetime.now()
+            self.updated_at = datetime.now()
 
     def save(self):
         '''saves an instance to a file'''
