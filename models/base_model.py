@@ -24,7 +24,10 @@ class BaseModel:
         dict_obj['__class__'] = self.__class__.__name__
 
         for attr in self.__dict__.keys():
-            dict_obj[attr] = self.__dict__[attr]
+            if attr == 'updated_at' or attr == 'created_at':
+                dict_obj[attr] = datetime.isoformat(self.__dict__[attr])
+            else:
+                dict_obj[attr] = self.__dict__[attr]
 
         return (dict_obj)
 
