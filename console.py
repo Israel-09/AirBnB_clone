@@ -1,5 +1,8 @@
 #!/usr/bin/python3
-'''commandline interpreter for interface'''
+'''
+module that contains the entry point of the command
+interpreter
+'''
 
 import cmd
 from models.base_model import BaseModel
@@ -12,21 +15,42 @@ class HBNBCommand(cmd.Cmd):
     class_dict = {'BaseModel': BaseModel}
 
     def do_quit(self, line):
-        '''quits the session'''
+        '''quits the session
+
+        Args:
+            line (str): arguements to the command
+
+        Return:
+            Always return True to quit shell
+        '''
         return True
 
     def do_EOF(self, line):
-        '''handle Ctrl-D(EOF)'''
+        '''handles ctrl-D ( EOF)
+
+        Args:
+            line (str): arguements to the command
+
+        Return:
+            Always return True to quit shell
+        '''
         print()
         return True
 
     def emptyline(self):
-        '''handles empty line'''
+        '''
+        making sure the intepreter does nothing
+        by overidinng the method
+        '''
         pass
 
     def do_create(self, line):
         ''' Creates a new instance of BaseModel, saves it
-        (to the JSON file) and prints the id.'''
+        (to the JSON file) and prints the id.
+
+        Args:
+            line (str): argumnent(s) to the function.
+        '''
         if line:
             line = line.split()[0]
             if line in self.class_dict.keys():
@@ -50,7 +74,11 @@ class HBNBCommand(cmd.Cmd):
         print('{}'.format(help_txt))
 
     def do_show(self, line):
-        '''Prints the instance of a class'''
+        '''Prints the instance of a class
+        
+        Args:
+            line (str): argumnent(s) to the function.
+        '''
         if line:
             line = line.split()
             if len(line) > 0:
@@ -77,7 +105,11 @@ class HBNBCommand(cmd.Cmd):
         print('{}'.format(help_txt))
 
     def do_destroy(self, line):
-        '''destroy the instance of a class'''
+        '''destroy the instance of a class
+        
+        Args:
+            line (str): argumnent(s) to the function.
+        '''
         if line:
             line = line.split()
             if len(line) > 0:
@@ -108,7 +140,11 @@ class HBNBCommand(cmd.Cmd):
         print(help_txt)
 
     def do_all(self, line):
-        '''prints instances of class'''
+        '''prints instances of class
+        
+        Args:
+            line (str): argumnent(s) to the function.
+        '''
 
         all_obj = storage.all()
         obj_list = []
