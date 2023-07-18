@@ -2,9 +2,9 @@
 '''testing the engine class'''
 import os
 import unittest
-from models import storage
 from models.engine.file_storage import FileStorage
 from models.base_model import BaseModel
+from models import storage
 
 
 class TestFileStorage(unittest.TestCase):
@@ -24,11 +24,21 @@ class TestFileStorage(unittest.TestCase):
         private_attr = f'_{storage.__class__.__name__}__objects'
         self.assertTrue(private_attr in dir(storage))
     
+    def test_objects_2(self):
+        '''testing the object attribute'''
+        private_attr = f'_{storage.__class__.__name__}__objects'
+        self.assertTrue(private_attr, dict)
+
     def test_file_path(self):
         '''testing the file_path attribute'''
         self.assertFalse(hasattr(storage, '__file_path'))
         private_attr = f'_{storage.__class__.__name__}__file_path'
         self.assertTrue(private_attr in dir(storage))
+    
+    def test_file_path_2(self):
+        '''testing the object attribute'''
+        private_attr = f'_{storage.__class__.__name__}__file_path'
+        self.assertTrue(private_attr, dict)
 
     def test_all_exist(self):
         '''testing if all method exists'''
