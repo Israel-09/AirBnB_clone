@@ -15,13 +15,7 @@ class HBNBCommand(cmd.Cmd):
     class_dict = {'BaseModel': BaseModel}
 
     def do_quit(self, line):
-        '''quits the session
-
-        Args:
-            line (str): arguements to the command
-
-        Return:
-            Always return True to quit shell
+        '''Quit command to exit the program
         '''
         return True
 
