@@ -13,10 +13,13 @@ class TestFileStorage(unittest.TestCase):
     def setUp(self):
         '''setup method'''
         pass
+    
+    def test_storage_instance(self):
+        '''testing if storage is an instance of FileStorage'''
+        self.assertTrue(isinstance(storage, FileStorage))
 
     def test_objects(self):
         '''testing the object attribute'''
-        self.assertTrue(isinstance(storage, FileStorage))
         self.assertFalse(hasattr(storage, '__objects'))
         private_attr = f'_{storage.__class__.__name__}__objects'
         self.assertTrue(private_attr in dir(storage))

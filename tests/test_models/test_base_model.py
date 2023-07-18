@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 '''testing base_model'''
 import unittest
+from models import storage
 from models.base_model import BaseModel
 
 
@@ -34,9 +35,20 @@ class BaseModelTest(unittest.TestCase):
         '''testing the save method of BaseModel'''
         self.assertTrue(hasattr(self.model1, 'save') and
                         callable(self.model1.save))
+
+    def test_base_model_save_2(self):
+        '''testing the save method of BaseModel'''
         current_time = self.model1.updated_at
         self.model1.save()
         self.assertNotEqual(current_time, self.model1.updated_at)
+
+    def test_base_model_save_3(self):
+        '''testing the save method of BaseModel'''
+        storage._FileStorage__objects = {}
+        self.assertTrue(storage._FileStorage__objects == {})
+        model = BaseModel()
+        model.save()
+        self.assertFalse(storage._FileStorage__objects == {})
 
     def test_base_model_to_dict(self):
         '''testing the to_dict method of BaseModel'''
