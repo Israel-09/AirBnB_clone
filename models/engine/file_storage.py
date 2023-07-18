@@ -15,18 +15,24 @@ class FileStorage:
     __file_path = 'file.json'
     __objects = {}
 
+    dict_objs = {'BaseModel': BaseModel}
+
     def all(self):
         '''returns the stored objects'''
+
         return self.__objects
 
     def new(self, obj):
         '''sets in __objects the obj with key <obj class name>.id'''
         obj_key = f'{obj.__class__.__name__}.{obj.id}'
-        self.__objects[obj_key] = obj.to_dict()
+        self.__objects[obj_key] = obj
 
     def save(self):
         '''serialize the instances to a file'''
-        json_obj = dumps(self.__objects)
+        json_dict = {}
+        for k in self.__objects.keys():
+            json_dict[k] = self.__objects[k].to_dict()
+        json_obj = dumps(json_dict)
         try:
             with open(self.__file_path, 'w', encoding='utf-8') as f:
                 f.write(json_obj)
@@ -37,15 +43,14 @@ class FileStorage:
         '''deserialize the instance in a file'''
         try:
             with open(self.__file_path, 'r', encoding='utf-8') as f:
-                json_obj = f.read()
-                if not json_obj or json_obj == '':
+                json_str = f.read()
+                if not json_str or json_str == '':
                     self.__objects = {}
                 else:
-                    instances = loads(json_obj)
-                    for k in instances.keys():
-                        model = BaseModel(**instances[k])
+                    dict_obj = loads(json_str)
+                    for k in dict_obj.keys():
+                        model = BaseModel(**dict_obj[k])
                         self.new(model)
-                        
         except FileNotFoundError:
             pass
         
