@@ -5,6 +5,7 @@ interpreter
 '''
 import cmd
 from models.base_model import BaseModel
+from models import storage
 
 
 class HBNBCommand(cmd.Cmd):
@@ -75,19 +76,19 @@ class HBNBCommand(cmd.Cmd):
         '''
         if line:
             line = line.split()
-            if len(line) > 0:
-                if line[0] not in self.class_dict.keys():
-                    print('** class doesn\'t exist **')
+            if line[0] in self.class_dict.keys():
                 if len(line) < 2:
                     print('** instance id missing **')
                     return
 
-            all_obj = storage.all()
-            obj_key = f'{line[0]}.{line[1]}'
-            if obj_key in all_obj.keys():
-                print('{}'.format(all_obj[obj_key]))
+                all_obj = storage.all()
+                obj_key = f'{line[0]}.{line[1]}'
+                if obj_key in all_obj.keys():
+                    print('{}'.format(all_obj[obj_key]))
+                else:
+                    print('** no instance found **')
             else:
-                print('** no instance found **')
+                print("** class doesn't exist **")
         else:
             print(' ** class name missing **')
 
@@ -106,20 +107,20 @@ class HBNBCommand(cmd.Cmd):
         '''
         if line:
             line = line.split()
-            if len(line) > 0:
-                if line[0] not in self.class_dict.keys():
-                    print('** class doesn\'t exist **')
+            if line[0] in self.class_dict.keys():
                 if len(line) < 2:
                     print('** instance id missing **')
                     return
 
-            all_obj = storage.all()
-            obj_key = f'{line[0]}.{line[1]}'
-            if obj_key in all_obj.keys():
-                del all_obj[obj_key]
-                storage.save()
+                all_obj = storage.all()
+                obj_key = f'{line[0]}.{line[1]}'
+                if obj_key in all_obj.keys():
+                    del all_obj[obj_key]
+                    storage.save()
+                else:
+                    print('** no instance found **')
             else:
-                print('** no instance found **')
+                print('** class doesn\'t exist **')
         else:
             print(' ** class name missing **')
 
@@ -139,21 +140,31 @@ class HBNBCommand(cmd.Cmd):
         Args:
             line (str): argumnent(s) to the function.
         '''
-
-        all_obj = storage.all()
-        obj_list = []
         if line:
             line = line.split()
             if line[0] in self.class_dict.keys():
-                for key in all_obj.keys():
-                    if line[0] in key:
-                        obj_list.append(all_obj[key])
+                if len(line) < 2:
+                    print('** instance id missing **')
+                    return
+
+                all_obj = storage.all()
+                obj_key = f'{line[0]}.{line[1]}'
+                if obj_key in all_obj.keys():
+                    del all_obj[obj_key]
+                    storage.save()
+                else:
+                    print('** no instance found **')
             else:
                 print('** class doesn\'t exist **')
         else:
-            for key in all_obj.keys():
-                obj_list.append(all_obj[key])
-        print('{}'.format(all_obj))
+            dict_all = storage.all()
+            list_all = []
+            for k in dict_all.keys():
+                list_all.append(str(dict_all[k]))
+            print(list_all)
+
+
+
 
 
 if __name__ == '__main__':
