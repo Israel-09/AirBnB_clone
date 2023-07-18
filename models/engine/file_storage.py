@@ -1,13 +1,13 @@
 #!/usr/bin/python3
 '''module for serialozation and deserialization
 for objects for storage'''
-from models.amenity import Amenity
+'''from models.amenity import Amenity
 from models.base_model import BaseModel
 from models.city import City
 from models.place import Place
 from models.review import Review
 from models.state import State
-from models.user import User
+from models.user import User'''
 from json import loads, dumps
 
 class FileStorage:
@@ -21,8 +21,27 @@ class FileStorage:
 
     def new(self, obj):
         '''sets in __objects the obj with key <obj class name>.id'''
-        obj_key = f'{obj.__class__.__name__}.obj.id'
+        obj_key = f'{obj.__class__.__name__}.{obj.id}'
         self.__objects[obj_key] = obj.to_dict()
 
     def save(self):
+        '''serialize the instances to a file'''
+        json_obj = dumps(self.__objects)
+        try:
+            with open(self.__file_path, 'w', encoding='utf-8') as f:
+                f.write(json_obj)
+        except FileNotFoundError:
+            pass
 
+    def reload(self):
+        '''deserialize the instance in a file'''
+        try:
+            with open(self.__file_path, 'r', encoding='utf-8') as f:
+                json_obj = f.read()
+                if not json_obj or json_obj == '':
+                    self.__objects = {}
+                else:
+                    self.__objects = loads(json_obj)
+        except FileNotFoundError:
+            pass
+        
