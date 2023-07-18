@@ -90,7 +90,7 @@ class HBNBCommand(cmd.Cmd):
             else:
                 print("** class doesn't exist **")
         else:
-            print(' ** class name missing **')
+            print('** class name missing **')
 
     def help_show(self):
         '''help statement for show command'''
@@ -122,7 +122,7 @@ class HBNBCommand(cmd.Cmd):
             else:
                 print('** class doesn\'t exist **')
         else:
-            print(' ** class name missing **')
+            print('** class name missing **')
 
     def help_destroy(self):
         '''help statement for destroy command'''
