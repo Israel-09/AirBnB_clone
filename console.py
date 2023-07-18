@@ -1,26 +1,22 @@
 #!/usr/bin/python3
 '''commandline interpreter for interface'''
 import cmd
-from models.amenity import Amenity
 from models.base_model import BaseModel
+from models import storage
+'''from models.amenity import Amenity
 from models.city import City
 from models.place import Place
 from models.review import Review
 from models.state import State
 from models.user import User
-
+'''
 
 class HBNBCommand(cmd.Cmd):
     '''command interpreter that inherits
     from cmd.Cmd module'''
 
     prompt = '(hbnb) '
-
-    class_dict = {
-            'Amenity': Amenity, 'BaseModel': BaseModel,
-            'City': City, 'Place': Place, 'Review': Review,
-            'State': State, 'User': User
-            }
+    class_dict = {'BaseModel': BaseModel}
 
     def do_quit(self, line):
         '''quits the session'''
@@ -43,6 +39,7 @@ class HBNBCommand(cmd.Cmd):
             if line in self.class_dict.keys():
                 new_instance = self.class_dict[line]()
                 print('{}'.format(new_instance.id))
+                new_instance.save()
             else:
                 print('** class doesn\'t exist **')
         else:
@@ -138,3 +135,10 @@ class HBNBCommand(cmd.Cmd):
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
+
+'''    class_dict = {
+            'Amenity': Amenity, 'BaseModel': BaseModel,
+            'City': City, 'Place': Place, 'Review': Review,
+            'State': State, 'User': User
+            }
+'''
