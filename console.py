@@ -3,9 +3,9 @@
 module that contains the entry point of the command
 interpreter
 '''
-
 import cmd
 from models.base_model import BaseModel
+
 
 class HBNBCommand(cmd.Cmd):
     '''command interpreter that inherits
@@ -66,7 +66,7 @@ class HBNBCommand(cmd.Cmd):
     def help_create(self):
         '''help statement for create command'''
         help_txt = [
-                'Creates a new instance of BaseModel,', 
+                'Creates a new instance of BaseModel,',
                 'saves it (to the JSON file) and prints the id.',
                 '\nEx: $ create BaseModel'
                 ]
@@ -75,7 +75,7 @@ class HBNBCommand(cmd.Cmd):
 
     def do_show(self, line):
         '''Prints the instance of a class
-        
+
         Args:
             line (str): argumnent(s) to the function.
         '''
@@ -93,20 +93,20 @@ class HBNBCommand(cmd.Cmd):
             if obj_key in all_obj.keys():
                 print('{}'.format(all_obj[obj_key]))
             else:
-                print('** no instance found **')                
+                print('** no instance found **')
         else:
-           print(' ** class name missing **')
+            print(' ** class name missing **')
 
     def help_show(self):
         '''help statement for show command'''
         help_txt = ['Prints the string representation of',
-                'an instance based on the class name and id']
+                    'an instance based on the class name and id']
         help_txt = ' '.join(help_txt)
         print('{}'.format(help_txt))
 
     def do_destroy(self, line):
         '''destroy the instance of a class
-        
+
         Args:
             line (str): argumnent(s) to the function.
         '''
@@ -124,11 +124,11 @@ class HBNBCommand(cmd.Cmd):
             if obj_key in all_obj.keys():
                 del all_obj[obj_key]
                 storage.save()
-            else :
-                print('** no instance found **')                
+            else:
+                print('** no instance found **')
         else:
-           print(' ** class name missing **')
-    
+            print(' ** class name missing **')
+
     def help_destroy(self):
         '''help statement for destroy command'''
         help_txt = [
@@ -141,7 +141,7 @@ class HBNBCommand(cmd.Cmd):
 
     def do_all(self, line):
         '''prints instances of class
-        
+
         Args:
             line (str): argumnent(s) to the function.
         '''
