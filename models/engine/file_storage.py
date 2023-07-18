@@ -2,12 +2,12 @@
 '''module for serialozation and deserialization
 for objects for storage'''
 '''from models.amenity import Amenity
-from models.base_model import BaseModel
 from models.city import City
 from models.place import Place
 from models.review import Review
 from models.state import State
 from models.user import User'''
+from models.base_model import BaseModel
 from json import loads, dumps
 
 class FileStorage:
@@ -41,7 +41,11 @@ class FileStorage:
                 if not json_obj or json_obj == '':
                     self.__objects = {}
                 else:
-                    self.__objects = loads(json_obj)
+                    instances = loads(json_obj)
+                    for k in instances.keys():
+                        model = BaseModel(**instances[k])
+                        self.new(model)
+                        
         except FileNotFoundError:
             pass
         
