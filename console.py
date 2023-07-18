@@ -143,17 +143,11 @@ class HBNBCommand(cmd.Cmd):
         if line:
             line = line.split()
             if line[0] in self.class_dict.keys():
-                if len(line) < 2:
-                    print('** instance id missing **')
-                    return
-
-                all_obj = storage.all()
-                obj_key = f'{line[0]}.{line[1]}'
-                if obj_key in all_obj.keys():
-                    del all_obj[obj_key]
-                    storage.save()
-                else:
-                    print('** no instance found **')
+                dict_all = storage.all()
+                list_all = []
+                for k in dict_all.keys():
+                    if line[0] in k:
+                        list_all.append(str(dict_all[k]))
             else:
                 print('** class doesn\'t exist **')
         else:
@@ -161,7 +155,7 @@ class HBNBCommand(cmd.Cmd):
             list_all = []
             for k in dict_all.keys():
                 list_all.append(str(dict_all[k]))
-            print(list_all)
+        print(list_all)
 
 
 
