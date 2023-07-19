@@ -157,8 +157,57 @@ class HBNBCommand(cmd.Cmd):
                 list_all.append(str(dict_all[k]))
         print(list_all)
 
+    def check_type(self, value):
+        try:
+            value = int(value)
+            return value
+            print('called')
+        except ValueError:
+            pass
 
+        try:
+            value = float(value)
+            return value
+        except ValueError:
+            pass
 
+        try:
+            value = str(value)
+            return value
+        except ValueError:
+            pass
+        return ''
+
+    def do_update(self, line):
+        '''implement the update command'''
+        if line:
+            line = line.split()
+            if line[0] in self.class_dict.keys():
+                if len(line) < 2:
+                    print('** instance id missing **')
+                    return
+                all_obj = storage.all()
+                obj_key = f'{line[0]}.{line[1]}'
+                if obj_key in all_obj.keys():
+                    if len(line) < 3:
+                        print('** attribute name missing **')
+                        return
+                    elif len(line) < 4:
+                        print('** value missing **')
+                        return
+
+                    value = self.check_type(line[3])
+                    builtins = ['id', 'created_at', 'updated_at']
+                    if (value != '') and line[2] not in builtins:
+                        setattr(all_obj[obj_key], str(line[2]), value)
+                        all_obj[obj_key].save()
+
+                else:
+                    print('** no instance found **')
+            else:
+                print('** class doesn\'t exist **')
+        else:
+            print('** class name missing **')
 
 
 if __name__ == '__main__':
