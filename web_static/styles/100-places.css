@@ -80,10 +80,69 @@ div.articles {
     height: 50px;
 }
 
-.user {
+.description, .user
+{
     margin: 5px 0 5px 0;
 }
 
-.description {
-    margin: 5px 0 5px 0;
+.articles .amenities, .reviews{
+    margin-top: 40px;
+}
+
+.articles .amenities h2, .articles .reviews h2{
+    margin: 0;
+    font-size: 16px;
+    padding-bottom: 10px;
+    width: 100%;
+    border-bottom: 1px solid #DDDDDD;
+}
+article > .amenities {
+    display: flex;
+    flex-direction: column;
+}
+.amenities > ul{
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+}
+.amenities li div{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.tv_icon, .wifi_icon,
+.pets_icon {
+    width: 50px;
+    height: 50px;
+    margin-right: 20px;
+}
+
+.tv_icon{
+    background-image: url('../images/icon_tv.png');
+}
+
+.wifi_icon {
+    background-image: url('../images/icon_wifi.png');
+}
+
+.pets_icon {
+    background-image: url('../images/icon_pets.png');
+}
+
+.reviews{
+    display: flex;
+    flex-direction: column;
+}
+
+.reviews ul li{
+    margin: 16px 0 16px 0;
+}
+
+.reviews ul li > p {
+    margin-bottom: 5px;
+    font-size: 12px;
+}
+
+.reviews ul li > h3 {
+    font-size: 14px;
 }
